@@ -1,0 +1,10 @@
+@mixin relative($property, $minSize, $maxSize, $contain: false, $screen: 1200 ){
+  @if $contain {
+    #{$property}: #{$maxSize + px};
+    @media screen and (max-width: #{$screen + px}){
+      #{$property}: calc(#{$minSize + px} + (#{$maxSize - $minSize}) * ((100vw - 320px) / #{$screen - 320}))
+    }
+  } @else {
+    #{$property}: calc(#{$minSize + px} + (#{$maxSize - $minSize}) * ((100vw - 320px) / #{$screen - 320}))
+  }
+}
