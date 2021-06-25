@@ -3,7 +3,7 @@
  * @param {Object} arr массив элементов
  * @return {Object} переупорядоченный массив
  */
-export function shuffle(arr) {
+function shuffle(arr) {
     return arr.sort(() => Math.random() - 0.5);
 }
 
@@ -12,7 +12,7 @@ export function shuffle(arr) {
  * @param {Object} arr массив с вложенными массивами
  * @return {Object} сглаженный массив
  */
-export function flatten(arr) {
+function flatten(arr) {
     return arr.reduce(function (acc, baz) {
         return acc.concat(Array.isArray(baz) ? flatten(baz) : baz);
     }, []);
@@ -23,7 +23,7 @@ export function flatten(arr) {
  * @param {number, string, boolean} args аргумент
  * @returns {function, Array} рекурсивная функция, закрывающий элемент вернёт массив переданных значений
  */
-export function curry(...args) {
+function curry(...args) {
     return (num) => {
         if (num === undefined) {
             return args
@@ -37,7 +37,7 @@ export function curry(...args) {
  * @param {Object} arr массив элементов (string, number, boolean)
  * @return {Object} key: элемент, value: кол-во повторений в массиве
  */
-export function packer(arr) {
+function packer(arr) {
     let count = {}
 
     for (let item of arr) {
@@ -54,7 +54,7 @@ export function packer(arr) {
  * @param {Boolean} reverse инвертировать результат
  * @return {Object} отсортированный массив
  */
-export function regulate(obj, reverse = false) {
+function regulate(obj, reverse = false) {
     if (reverse) {
         return Object.keys(obj).sort((a, b) => obj[b] - obj[a])
     }
@@ -68,11 +68,25 @@ export function regulate(obj, reverse = false) {
  * @param {Boolean} match обратная фильтрация (не равно)
  * @return {Object} отфильрованный массив
  */
-export function inclusive(obj, coerces, match = false) {
+function inclusive(obj, coerces, match = false) {
     if (match) {
         return Object.keys(obj).filter(item => obj[item] !== coerces)
     }
     return Object.keys(obj).filter(item => obj[item] === coerces)
+}
+
+/**
+ * Выворачивает объкт. Вернёт объкт, где ключ - значение переданного объкта, а значение - ключ.
+ * @param {Object} obj объект типа ключ/значение
+ * @return {Object} вывернутый объект
+ */
+function remap(obj) {
+    if (obj.length === 0) return obj;
+    return  Object.keys(obj)
+        .reduce( (acc, i) => {
+            acc[obj[i]] = [...(acc[obj[i]] || []), i];
+            return acc;
+        }, {} );
 }
 
 // =========================================== //
@@ -82,4 +96,3 @@ window.onload = () => setTimeout(() => {
     // После полной загрузки, выполняет функцию.
     // Минимальное время: 1000ms.
 }, 1000)
-
