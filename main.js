@@ -8,6 +8,15 @@ function shuffle(arr) {
 }
 
 /**
+ * Создаёт задержку на переданное время и возвращает пустой Promise.
+ * @param {number} ms время в милисекудах
+ * @return {Promise} пустой Promise
+ */
+function delay(ms){
+    return new Promise( res => setTimeout(() => res(), ms))
+}
+
+/**
  * Сглаживает переданный массив. Массивы могут содержать - number, string, boolean.
  * @param {Object} arr массив с вложенными массивами
  * @return {Object} сглаженный массив
