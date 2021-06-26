@@ -3,10 +3,10 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  //src: url("/fonts/Roboto-Medium.ttf") format("ttf");
+  src: url("/fonts/Roboto.ttf") format("ttf");
 }
 
-*, :after, :before {
+*, ::after, ::before {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -18,13 +18,18 @@
   text-decoration: none;
 }
 
-body {
-  height: 100%;
-  width: 100%;
-  font-family: 'Main', 'Arial', sans-serif;
+a {
+  text-decoration: none;
 }
 
-button, input, textarea {
+body {
+  width: 100vw;
+  height: 100%;
+  font-family: 'Main', sans-serif;
+  overflow-x: hidden;
+}
+
+a, button, input, textarea {
   font-family: inherit;
 }
 
@@ -36,10 +41,18 @@ ul li {
   list-style: none;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-size: inherit;
   font-weight: inherit;
 }
 
-@import "header";
-@import "footer";
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
