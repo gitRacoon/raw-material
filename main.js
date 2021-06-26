@@ -33,6 +33,34 @@ function curry(...args) {
 }
 
 /**
+ * Создаёт список повторяющихся элементов между двумя массивами.
+ * Учитывает повторное вхождение элементов.
+ * @param {Object} nums1 список элементов
+ * @param {Object} nums2 список элементов
+ * @return {Object} список пересечений между элементами
+ */
+function intersect(nums1, nums2) {
+    let result = [];
+
+    let map = nums1.reduce((acc, i) => {
+        acc[i] = acc[i] ? acc[i] + 1 : 1;
+        return acc;
+    }, {});
+
+    for (let i = 0; i < nums2.length; i++) {
+        let current = nums2[i];
+        let currentMapItem = map[current];
+
+        if (currentMapItem && currentMapItem > 0) {
+            result.push(current);
+            map[current] = currentMapItem - 1;
+        }
+    }
+
+    return result;
+}
+
+/**
  * Подсчитывает кол-во повторов элемента в массиве.
  * @param {Object} arr массив элементов (string, number, boolean)
  * @return {Object} key: элемент, value: кол-во повторений в массиве
