@@ -19,6 +19,33 @@ function flatten(arr) {
 }
 
 /**
+ * Возвращает индекс первого уникального символа в строке или элемента в массиве.
+ * В случае отсутствия такого символа вернёт -1.
+ * При передаче не корректных данных вернёт -1.
+ * @param {string, Object} s строка в нижнем регистре или массив.
+ * @return {number} индекс искомого символа
+ */
+let firstUniqChar = function (s) {
+    let map = new Map();
+    for (let i = 0; i < s.length; i++) {
+        let current = s[i];
+
+        if (map.has(current)) {
+            map.set(current, map.get(current) + 1);
+        } else {
+            map.set(current, 1);
+        }
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if (map.get(s[i]) === 1) {
+            return i;
+        }
+    }
+    return -1;
+};
+
+/**
  * Рекурсивно принимает аргументы и записывает в массив. Для выхода нужно использовать пустые круглые скобки.
  * @param {number, string, boolean} args аргумент
  * @returns {function, Array} рекурсивная функция, закрывающий элемент вернёт массив переданных значений
