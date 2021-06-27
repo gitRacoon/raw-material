@@ -8,15 +8,6 @@ function shuffle(arr) {
 }
 
 /**
- * Создаёт задержку на переданное время и возвращает пустой Promise.
- * @param {number} ms время в милисекудах
- * @return {Promise} пустой Promise
- */
-function delay(ms){
-    return new Promise( res => setTimeout(() => res(), ms))
-}
-
-/**
  * Сглаживает переданный массив. Массивы могут содержать - number, string, boolean.
  * @param {Object} arr массив с вложенными массивами
  * @return {Object} сглаженный массив
@@ -151,6 +142,46 @@ function remap(obj) {
             acc[obj[i]] = [...(acc[obj[i]] || []), i];
             return acc;
         }, {} );
+}
+
+// =========================================== //
+
+/**
+ * Создаёт задержку на переданное время и возвращает пустой Promise.
+ * @param {number} ms время в милисекудах
+ * @return {Promise} пустой Promise
+ */
+function delay(ms){
+    return new Promise( res => setTimeout(() => res(), ms))
+}
+
+/**
+ * Выполнение асинхронного запроса. Для получения data, использовать then(data => data).
+ * Вернёт полученную data или пустой список как Promise.
+ * @param {String} method метод запроса
+ * @param {String} url ссылка
+ * @param {Object} content передаваемое значение
+ * @return {Promise} выполненный запрос
+ */
+function sendRequest(method, url, content = null) {
+    return new Promise(function (resolve, reject) {
+        const XHR = new XMLHttpRequest();
+
+        XHR.open(method, url);
+        XHR.responseType = 'json';
+        XHR.setRequestHeader('Content-Type', 'application/json')
+
+        XHR.onload = () => {
+            if (XHR.status >= 404) {
+                reject(XHR.response);
+            } else {
+                resolve(XHR.response);
+            }
+        };
+        XHR.onerror = () => reject(XHR.response);
+
+        XHR.send(JSON.stringify(content));
+    })
 }
 
 // =========================================== //
