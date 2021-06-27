@@ -156,14 +156,14 @@ function delay(ms){
 }
 
 /**
- * Выполнение асинхронного запроса. Для получения data, использовать then(data => data).
- * Вернёт полученную data или пустой список как Promise.
+ * Выполнение асинхронного запроса. Вернёт Promise для получения data.
+ * Для получения data, использовать then(data => variable = data).
  * @param {String} method метод запроса
  * @param {String} url ссылка
  * @param {Object} content передаваемое значение
  * @return {Promise} выполненный запрос
  */
-function sendRequest(method, url, content = null) {
+function sendRequestXHR(method, url, content = null) {
     return new Promise(function (resolve, reject) {
         const XHR = new XMLHttpRequest();
 
