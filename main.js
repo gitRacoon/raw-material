@@ -8,6 +8,17 @@ function shuffle(arr) {
 }
 
 /**
+ * Возвращает случайное число в занном диапазоне (от и до).
+ * По умолчанию диапазон - от 0 до 10.
+ * @param {number} min минимальное значение
+ * @param {number} max максимальное значение
+ * @return {number} случайное число
+ */
+function randomInRange(min = 0, max = 10) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+/**
  * Сглаживает переданный массив. Массивы могут содержать - number, string, boolean.
  * @param {Object} arr массив с вложенными массивами
  * @return {Object} сглаженный массив
