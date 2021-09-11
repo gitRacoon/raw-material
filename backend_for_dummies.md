@@ -1,11 +1,11 @@
 # Навигация
-
-[:dart:](https://github.com/nvm-sh/nvm/blob/master/README.md) **[NVM](#nvm)**
-
-[:dart:](https://docs.docker.com/) **[Docker](#docker)**
+[:dart:](https://github.com/nvm-sh/nvm/blob/master/README.md) **[NVM](#nvm)**  
+[:dart:](https://docs.docker.com/) **[Docker](#docker)**  
+[:dart:](https://getcomposer.org/) **[Composer](#composer)**  
+[:dart:](https://devilbox.readthedocs.io/en/latest/index.html) **[DevilBox](#devilbox)**  
+[:dart:](https://devilbox.readthedocs.io/en/latest/examples/setup-wordpress.html) **[WordPress](#wordpress)**
 
 # NVM
-
 > Необходимо предустановить `curl`.
 
 ## Установка
@@ -56,7 +56,7 @@ nvm alias default [version]
 ```
 
 # Docker
-> Необходимо предустановить `git`, `snap`.
+> Необходимо предустановить `git`.
 
 ## Установка
 ```bash
@@ -68,7 +68,7 @@ sudo snap start docker
 
 ## Запуск локального сервера.
 ```bash
-sudo docker-compose up -d
+sudo docker-compose up
 ```
 
 > При первом запуске необходимо дождаться загрузки всех ресурсов.
@@ -122,4 +122,78 @@ php composer-setup.php --[version]
 Появившийся файл `composer.phar` переместить в нужное место.
 ```bash
 sudo mv composer.phar /usr/local/bin/composer
+```
+
+# DevilBox
+>Необходимо предустановить `git`.
+
+### Установка
+```bash
+git clone https://github.com/cytopia/devilbox
+```
+
+Создать `.env` файл.
+```bash
+cp env-example .env
+```
+
+>Точечную конфигурацию настроек можно выполнить в файле `.env` [:dart:](https://devilbox.readthedocs.io/en/latest/configuration-files/env-file.html).
+
+Запустить локальный сервер.  
+```bash
+docker-compose up
+```
+
+>Для запуска в фоновом режиме можно использовать флаг `-d`.
+
+Если включён **SELinux**, то надо изменить соответствующую настройку в `.env` файле, чтобы разрешить монтирование между нескольколькими контейнерами.  
+```bash
+MOUNT_OPTIONS=,z
+```
+
+# WordPress
+>Необходимо предустановить `devilbox`.
+
+## Установка
+Войти в **shell** и создать папку (`[site-name]` - субдомен).  
+```bash
+sudo ./shell.sh
+```
+```bash
+mkdir [site-name]
+```
+
+Внутрь поместить **wordpress** проект (`[project-name]` - название проекта).
+```bash
+cd [site-name]
+```
+```bash
+mkdir [project-name]
+```
+
+>Можно скачать пустой **wordpress** проект с помощью `git`.
+```bash
+git clone https://github.com/WordPress/WordPress [project-name]
+```
+
+Создать Symlinking.
+```sh
+ln -s [project-name]/ htdocs
+```
+
+>Просмотреть вложенность и убедиться, что ссылка создана правильно - `tree -L 1`.
+
+Создать базу данных (`[project-db]` - название БД).
+```sh
+mysql -u root -h 127.0.0.1 -p -e 'CREATE DATABASE [project-db];'
+```
+
+>Создать базу данных можно и в DevilBox во вкладке **Tools>phpMyAdmin** (см. [phpMyAdmin - Doc](https://docs.phpmyadmin.net/en/latest/)).  
+
+Настроить DNS. Добавить созданный домен после localhost.  
+```bash
+sudo nano /etc/hosts
+```
+```bash
+docker-compose restart
 ```
