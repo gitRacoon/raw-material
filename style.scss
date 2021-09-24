@@ -3,47 +3,18 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Roboto.ttf") format("ttf");
+  src: url("/fonts/Roboto.woff2") format("woff2"), url("/fonts/Roboto.woff") format("woff"), url("/fonts/Roboto.ttf") format("truetype"),;
 }
 
-*, ::after, ::before {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
-:active, :focus, :visited, :hover {
-  outline: 0;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-body {
-  width: 100vw;
-  height: 100%;
-  font-family: 'Main', sans-serif;
-  overflow-x: hidden;
-}
-
-a, button, input, textarea {
-  font-family: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-ul li {
-  list-style: none;
-}
-
-h1, h2, h3 {
-  font-size: inherit;
-  font-weight: inherit;
+@mixin relative($property, $minSize, $maxSize, $contain: false, $screen: 1200 ){
+  @if $contain {
+    #{$property}: #{$maxSize + px};
+    @media screen and (max-width: #{$screen + px}){
+      #{$property}: calc(#{$minSize + px} + (#{$maxSize - $minSize}) * ((100vw - 320px) / #{$screen - 320}))
+    }
+  } @else {
+    #{$property}: calc(#{$minSize + px} + (#{$maxSize - $minSize}) * ((100vw - 320px) / #{$screen - 320}))
+  }
 }
 
 .visually-hidden {
