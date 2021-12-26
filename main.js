@@ -194,23 +194,3 @@ function sendRequestXHR(method, url, content = null) {
         XHR.send(JSON.stringify(content));
     })
 }
-
-// =========================================== //
-
-window.onload = () => setTimeout(() => {
-    // Предварителььная загрузка страницы.
-    // После полной загрузки, выполняет функцию.
-    // Минимальное время: 1000ms.
-}, 1000)
-
-/**
- * Меняет содержимое вкладки (текст и иконку)
- * @param {String} icon путь к иконке
- * @param {String} text текст заголовка
- */
-function changeTabContent(icon, text) {
-  document.querySelector('head title').innerHTML = text;
-  document.querySelector('link[rel="icon"]').setAttribute('href', icon);
-}
-window.onblur = () => {changeTabContent(icon, text)}; // при переключения на другую вкладку
-window.onfocus = () => {changeTabContent(icon, text)}; // при фокусе на текущую вкладку
