@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Main";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/Roboto.woff2") format("woff2"), url("/fonts/Roboto.woff") format("woff"), url("/fonts/Roboto.ttf") format("truetype"),;
-}
-
 @mixin relative($property, $minSize, $maxSize, $contain: false, $screen: 1200 ){
   @if $contain {
     #{$property}: #{$maxSize + px};
